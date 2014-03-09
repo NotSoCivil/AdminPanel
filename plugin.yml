@@ -1,0 +1,8 @@
+name: AdminPanel
+main: src.panel.AP
+version: 1.2
+description: >
+            	AdminPanel
+commands:
+  AdminF:
+    description: AdminPanel
