@@ -1,6 +1,6 @@
 name: AdminPanel
 main: src.panel.AP
-version: 1.2
+version: 1.7
 description: >
             	AdminPanel
 commands:
