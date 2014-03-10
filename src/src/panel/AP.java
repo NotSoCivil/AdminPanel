@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -57,6 +58,7 @@ public class AP extends JavaPlugin implements Listener{
 	//CommandLabelForTheFeather
 		public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 				Player player = (Player) sender;
+				Player targetPlayer = player.getServer().getPlayer(args[0]);
 				PlayerInventory inventory = player.getInventory();
 
 					//AdminPanelFeather
@@ -67,16 +69,18 @@ public class AP extends JavaPlugin implements Listener{
 
 							//AdminPanelFeatherCommand
 									if(commandLabel.equalsIgnoreCase("AdminF")){
+										if(args.length == 0){
 											if(player.hasPermission("AP.APF")){
 												inventory.addItem(Fea);
 											}
+										}
+											
 									}				
 				return false;
 		}
 	
-
     	
-   	 public static Inventory AdminP = Bukkit.createInventory(null, 18, ChatColor.BOLD + "AdminPanel");
+   	 public static Inventory AdminP = Bukkit.createInventory(null, 27, ChatColor.BOLD + "AdminPanel");
    		static {
                //ItemStacks
    			
@@ -146,6 +150,21 @@ public class AP extends JavaPlugin implements Listener{
    							Hm.setLore(Arrays.asList(ChatColor.GOLD + "Heal your self and fill your hunger"));
    							Ha.setItemMeta(Hm);
    								AdminP.setItem(16, Ha);
+   			//GetPlayerAmount
+   								
+   								List<String> players = new ArrayList<String>();
+   								for(Player GA : Bukkit.getServer().getOnlinePlayers()){
+   									players.add(GA.getName());
+   								}
+   								
+   								
+   								int GPA = Bukkit.getServer().getOnlinePlayers().length;
+   								ItemStack Gp = new ItemStack(Material.PAPER, 1);
+   	   							ItemMeta Gmp = Ha.getItemMeta();
+   	   							Gmp.setDisplayName(ChatColor.GREEN + "Online Players : " +ChatColor.RED + GPA);
+   	   							Gmp.setLore(Arrays.asList(ChatColor.GOLD + "Currently Connected : " + ChatColor.GRAY + players));
+   	   							Gp.setItemMeta(Gmp);
+   	   								AdminP.setItem(18, Gp);
                				
    		}
    		
@@ -238,6 +257,21 @@ public class AP extends JavaPlugin implements Listener{
    								player.setFoodLevel(20);
    								player.sendMessage(ChatColor.GREEN + "[AdminPanel] Healed");
    			}
+   						if(event.getSlot() == 18){
+								List<String> players = new ArrayList<String>();
+								for(Player GA : Bukkit.getServer().getOnlinePlayers()){
+									players.add(GA.getName());
+								}
+   							
+   							event.setCancelled(true);
+   							player.closeInventory();
+   								int GPA = this.getServer().getOnlinePlayers().length;
+   							if(GPA == 1){
+   								player.sendMessage(ChatColor.GOLD + "[AdminPanel] There is currently 1 player");
+   							}else
+   								player.sendMessage(ChatColor.GOLD + "[AdminPanel] There are currently " +GPA + " Players online");
+   								player.sendMessage(ChatColor.GOLD + "[AdminPanel] Currently connected Players : " + ChatColor.GRAY + players);
+   		   }
    		}
    	}
    	
