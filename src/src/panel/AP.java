@@ -80,7 +80,7 @@ public class AP extends JavaPlugin implements Listener{
                //ItemStacks
    			
    			//Vanish
-              ItemStack Vanish = new ItemStack(Material.DIAMOND, 1);
+              ItemStack Vanish = new ItemStack(Material.PAPER, 1);
                	ItemMeta DM = Vanish.getItemMeta();
                	DM.setDisplayName(ChatColor.GRAY + "Vanish");
                	DM.setLore(Arrays.asList(ChatColor.GREEN + "Vanish to spy on others"));
@@ -88,7 +88,7 @@ public class AP extends JavaPlugin implements Listener{
                		AdminP.setItem(0, Vanish);
                	
             //UnVanish
-               	ItemStack UnVanish = new ItemStack(Material.EMERALD, 1);
+               	ItemStack UnVanish = new ItemStack(Material.PAPER, 1);
                	ItemMeta UM = UnVanish.getItemMeta();
                	UM.setDisplayName(ChatColor.GRAY + "UnVanish");
                	UM.setLore(Arrays.asList(ChatColor.GREEN + "Exit out of Vanish"));
@@ -96,48 +96,48 @@ public class AP extends JavaPlugin implements Listener{
                		AdminP.setItem(1, UnVanish);
             
             //GamemodeCreative
-               	ItemStack Cr = new ItemStack(Material.REDSTONE_TORCH_ON, 1);
+               	ItemStack Cr = new ItemStack(Material.PAPER, 1);
                	ItemMeta CM = Cr.getItemMeta();
                	CM.setDisplayName(ChatColor.YELLOW + "Creative");
                	CM.setLore(Arrays.asList(ChatColor.GREEN + "Changes your GameMode to Creative."));
                	Cr.setItemMeta(CM);
-               		AdminP.setItem(3, Cr);
+               		AdminP.setItem(2, Cr);
            //GamemodeSurvival
-               	ItemStack Sr = new ItemStack(Material.TORCH, 1);
+               	ItemStack Sr = new ItemStack(Material.PAPER, 1);
                	ItemMeta SM = Sr.getItemMeta();
                	SM.setDisplayName(ChatColor.GOLD + "Survival");
                	SM.setLore(Arrays.asList(ChatColor.GREEN + "Changes your GameMode to Survival"));
                	Sr.setItemMeta(SM);
-               		AdminP.setItem(4, Sr);
+               		AdminP.setItem(3, Sr);
            //AnnounceRestart
-               		ItemStack Ar = new ItemStack(Material.REDSTONE);
+               		ItemStack Ar = new ItemStack(Material.PAPER);
                		ItemMeta AM = Ar.getItemMeta();
                		AM.setDisplayName(ChatColor.RED + "Announce Server restart");
                		AM.setLore(Arrays.asList(ChatColor.RED + "Annouce a Server restart (Manual Restart)"));
                		Ar.setItemMeta(AM);
-               			AdminP.setItem(6, Ar);
+               			AdminP.setItem(4, Ar);
            //ReloadPlugins
-               			ItemStack Pr = new ItemStack(Material.BUCKET);
+               			ItemStack Pr = new ItemStack(Material.PAPER);
                			ItemMeta PM = Pr.getItemMeta();
                			PM.setDisplayName(ChatColor.GREEN + "Reload plugins");
                			PM.setLore(Arrays.asList(ChatColor.GREEN + "Reload the Server Plugins and Whitelist"
                					+ ""));
                			Pr.setItemMeta(PM);
-               				AdminP.setItem(7, Pr);
+               				AdminP.setItem(5, Pr);
            //KillAllEntities[MOBS]
-               			ItemStack Ka = new ItemStack(Material.DIAMOND_SWORD, 1);
+               			ItemStack Ka = new ItemStack(Material.PAPER, 1);
                			ItemMeta Km = Ka.getItemMeta();
                			Km.setDisplayName(ChatColor.DARK_RED + "Kill all Mobs in world");
                			Km.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in the current World, this does not have a raidius"));
                			Ka.setItemMeta(Km);
-               				AdminP.setItem(9, Ka);
+               				AdminP.setItem(6, Ka);
            //KillAllEntitiesRadius[MOBS]
-   						ItemStack KAR = new ItemStack(Material.IRON_SWORD, 1);
+   						ItemStack KAR = new ItemStack(Material.PAPER, 1);
    						ItemMeta KAM = KAR.getItemMeta();
    						KAM.setDisplayName(ChatColor.RED + "Kill all Mobs (Radius)");
    						KAM.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in a radius."));
    						KAR.setItemMeta(KAM);
-   							AdminP.setItem(10, KAR);
+   							AdminP.setItem(7, KAR);
                				
    		}
    		
@@ -176,31 +176,31 @@ public class AP extends JavaPlugin implements Listener{
    					Vanish.remove(player.getName());
    				}
    				
-   				if(event.getSlot() == 3){
+   				if(event.getSlot() == 2){
    					event.setCancelled(true);
    					player.closeInventory();
    					player.sendMessage(ChatColor.GREEN + "GameMode changed to Creative");
    					player.setGameMode(GameMode.CREATIVE);
    				}
-   				if(event.getSlot() == 4){
+   				if(event.getSlot() == 3){
    					event.setCancelled(true);
    					player.closeInventory();
    					player.sendMessage(ChatColor.GREEN + "GameMode changed to Survival");
    					player.setGameMode(GameMode.SURVIVAL);
    				}
-   				if(event.getSlot() == 6){
+   				if(event.getSlot() == 4){
    					event.setCancelled(true);
    					player.closeInventory();
    					Bukkit.broadcastMessage(ChatColor.DARK_RED + "[Server] Server restart soon!");
    				}
-   				if(event.getSlot() == 7){
+   				if(event.getSlot() == 5){
    					event.setCancelled(true);
    					player.closeInventory();
    					Bukkit.reload();
    					Bukkit.reloadWhitelist();
    					player.sendMessage(ChatColor.GREEN + "Reloaded Server Whitelist and Plugins");
    				}
-   				if(event.getSlot() == 9){
+   				if(event.getSlot() == 6){
    					event.setCancelled(true);
    					player.closeInventory();
    					World w = player.getWorld();
@@ -211,7 +211,7 @@ public class AP extends JavaPlugin implements Listener{
    						}
    					}
    				}
-   				if(event.getSlot() == 10){
+   				if(event.getSlot() == 7){
    					event.setCancelled(true);
    					player.closeInventory();
    					List<Entity> ir = player.getNearbyEntities(200, 200, 200);
