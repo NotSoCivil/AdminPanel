@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,6 +15,7 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
@@ -79,77 +81,83 @@ public class AP extends JavaPlugin implements Listener{
 				return false;
 		}
 	
-    	
-   	 public static Inventory AdminP = Bukkit.createInventory(null, 27, ChatColor.BOLD + "AdminPanel");
+   	 public static Inventory AdminP = Bukkit.createInventory(null, 45, ChatColor.RED + "AdminPanel ");
    		static {
                //ItemStacks
    			
    			//Vanish
-              ItemStack Vanish = new ItemStack(Material.PAPER, 1);
+              ItemStack Vanish = new ItemStack(Material.POTION, 1);
                	ItemMeta DM = Vanish.getItemMeta();
                	DM.setDisplayName(ChatColor.GRAY + "Vanish");
                	DM.setLore(Arrays.asList(ChatColor.GREEN + "Vanish to spy on others"));
                	Vanish.setItemMeta(DM);
-               		AdminP.setItem(0, Vanish);
+               		AdminP.setItem(2, Vanish);
                	
             //UnVanish
-               	ItemStack UnVanish = new ItemStack(Material.PAPER, 1);
+               	ItemStack UnVanish = new ItemStack(Material.GLASS_BOTTLE, 1);
                	ItemMeta UM = UnVanish.getItemMeta();
                	UM.setDisplayName(ChatColor.GRAY + "UnVanish");
                	UM.setLore(Arrays.asList(ChatColor.GREEN + "Exit out of Vanish"));
                	UnVanish.setItemMeta(UM);
-               		AdminP.setItem(2, UnVanish);
+               		AdminP.setItem(4, UnVanish);
             
             //GamemodeCreative
-               	ItemStack Cr = new ItemStack(Material.PAPER, 1);
+               	ItemStack Cr = new ItemStack(Material.STONE, 1);
                	ItemMeta CM = Cr.getItemMeta();
                	CM.setDisplayName(ChatColor.YELLOW + "Creative");
                	CM.setLore(Arrays.asList(ChatColor.GREEN + "Changes your GameMode to Creative."));
                	Cr.setItemMeta(CM);
-               		AdminP.setItem(4, Cr);
+               		AdminP.setItem(12, Cr);
            //GamemodeSurvival
-               	ItemStack Sr = new ItemStack(Material.PAPER, 1);
+               	ItemStack Sr = new ItemStack(Material.GRASS, 1);
                	ItemMeta SM = Sr.getItemMeta();
                	SM.setDisplayName(ChatColor.GOLD + "Survival");
                	SM.setLore(Arrays.asList(ChatColor.GREEN + "Changes your GameMode to Survival"));
                	Sr.setItemMeta(SM);
-               		AdminP.setItem(6, Sr);
+               		AdminP.setItem(14, Sr);
            //AnnounceRestart
-               		ItemStack Ar = new ItemStack(Material.PAPER);
+               		ItemStack Ar = new ItemStack(Material.REDSTONE);
                		ItemMeta AM = Ar.getItemMeta();
                		AM.setDisplayName(ChatColor.RED + "Announce Server restart");
                		AM.setLore(Arrays.asList(ChatColor.RED + "Annouce a Server restart (Manual Restart)"));
                		Ar.setItemMeta(AM);
-               			AdminP.setItem(8, Ar);
+               			AdminP.setItem(33, Ar);
            //ReloadPlugins
-               			ItemStack Pr = new ItemStack(Material.PAPER);
+               			ItemStack Pr = new ItemStack(Material.REDSTONE);
                			ItemMeta PM = Pr.getItemMeta();
                			PM.setDisplayName(ChatColor.GREEN + "Reload plugins");
                			PM.setLore(Arrays.asList(ChatColor.GREEN + "Reload the Server Plugins and Whitelist"
                					+ ""));
                			Pr.setItemMeta(PM);
-               				AdminP.setItem(10, Pr);
+               				AdminP.setItem(31, Pr);
            //KillAllEntities[MOBS]
-               			ItemStack Ka = new ItemStack(Material.PAPER, 1);
+               			ItemStack Ka = new ItemStack(Material.DIAMOND_SWORD, 1);
                			ItemMeta Km = Ka.getItemMeta();
                			Km.setDisplayName(ChatColor.DARK_RED + "Kill all Mobs in world");
-               			Km.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in the current World, this does not have a raidius"));
+               			Km.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in the current World."));
                			Ka.setItemMeta(Km);
-               				AdminP.setItem(12, Ka);
+               				AdminP.setItem(19, Ka);
            //KillAllEntitiesRadius[MOBS]
-   						ItemStack KAR = new ItemStack(Material.PAPER, 1);
+   						ItemStack KAR = new ItemStack(Material.IRON_SWORD, 1);
    						ItemMeta KAM = KAR.getItemMeta();
    						KAM.setDisplayName(ChatColor.RED + "Kill all Mobs (Radius)");
-   						KAM.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in a radius."));
+   						KAM.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in Radius(100)"));
    						KAR.setItemMeta(KAM);
-   							AdminP.setItem(14, KAR);
-   			//HealPlayer
-   							ItemStack Ha = new ItemStack(Material.PAPER, 1);
-   							ItemMeta Hm = Ha.getItemMeta();
-   							Hm.setDisplayName(ChatColor.GREEN + "Heal yourself");
-   							Hm.setLore(Arrays.asList(ChatColor.GOLD + "Heal your self and fill your hunger"));
-   							Ha.setItemMeta(Hm);
-   								AdminP.setItem(16, Ha);
+   							AdminP.setItem(21, KAR);
+   			//KILLALLANIMALS
+   							ItemStack SA = new ItemStack(Material.STONE_SWORD, 1);
+   							ItemMeta Sm = SA.getItemMeta();
+   							Sm.setDisplayName(ChatColor.GREEN + "Kill all Animals");
+   							Sm.setLore(Arrays.asList(ChatColor.GOLD + "Kill all Animals in current World"));
+   							SA.setItemMeta(Sm);
+   								AdminP.setItem(23, SA);
+   			//KillAllAnimalsRadius
+   	   							ItemStack qa = new ItemStack(Material.WOOD_SWORD, 1);
+   	   							ItemMeta qm = qa.getItemMeta();
+   	   							qm.setDisplayName(ChatColor.GREEN + "Kill all Animals (Radius)");
+   	   							qm.setLore(Arrays.asList(ChatColor.GOLD + "Kill all Animals in Radius(100)"));
+   	   							qa.setItemMeta(qm);
+   	   								AdminP.setItem(25, qa);
    			//GetPlayerAmount
    								
    								List<String> players = new ArrayList<String>();
@@ -159,13 +167,27 @@ public class AP extends JavaPlugin implements Listener{
    								
    								
    								int GPA = Bukkit.getServer().getOnlinePlayers().length;
-   								ItemStack Gp = new ItemStack(Material.PAPER, 1);
-   	   							ItemMeta Gmp = Ha.getItemMeta();
+   								ItemStack Gp = new ItemStack(Material.REDSTONE, 1);
+   	   							ItemMeta Gmp = Gp.getItemMeta();
    	   							Gmp.setDisplayName(ChatColor.GREEN + "Online Players : " +ChatColor.RED + GPA);
-   	   							Gmp.setLore(Arrays.asList(ChatColor.GOLD + "Currently Connected : " + ChatColor.GRAY + players));
    	   							Gp.setItemMeta(Gmp);
-   	   								AdminP.setItem(18, Gp);
-               				
+   	   								AdminP.setItem(29, Gp);
+             //TPRANDOM
+   	   							ItemStack Kicka = new ItemStack(Material.ENDER_PEARL, 1);
+   	   							ItemMeta Kickm = Kicka.getItemMeta();
+   	   							Kickm.setDisplayName(ChatColor.RED + "Teleport to random Player");
+   	   							Kickm.setLore(Arrays.asList(ChatColor.DARK_RED + "Teleports you to a random Player In-Game"));
+   	   							Kicka.setItemMeta(Kickm);
+   	   								AdminP.setItem(40, Kicka);
+   	   		
+   	   		//HealPlayer
+   	    							ItemStack Ha = new ItemStack(Material.COOKED_BEEF, 1);
+   	    							ItemMeta Hm = Ha.getItemMeta();
+   	    							Hm.setDisplayName(ChatColor.GREEN + "Heal yourself");
+   	    							Hm.setLore(Arrays.asList(ChatColor.GOLD + "Heal yourself and fill your hunger"));
+   	    							Ha.setItemMeta(Hm);
+   	    								AdminP.setItem(6, Ha);			
+   	   						
    		}
    		
 
@@ -181,7 +203,7 @@ public class AP extends JavaPlugin implements Listener{
    			if(inventory.getName().equals(AdminP.getName())){
    				
    				//Vanish
-   				if(event.getSlot() == 0){
+   				if(event.getSlot() == 2){
    				event.setCancelled(true);
    					player.closeInventory();
    					player.sendMessage(ChatColor.GRAY + "[AdminPanel] Vanished");
@@ -196,7 +218,7 @@ public class AP extends JavaPlugin implements Listener{
    				}
    			}
    				//Unvanish
-   				if(event.getSlot() == 2){
+   				if(event.getSlot() == 4){
    					event.setCancelled(true);
    					player.closeInventory();	
    					player.sendMessage(ChatColor.GRAY + "[AdminPanel] UnVanished");
@@ -204,31 +226,31 @@ public class AP extends JavaPlugin implements Listener{
    					Vanish.remove(player.getName());
    				}
    				
-   				if(event.getSlot() == 4){
+   				if(event.getSlot() == 12){
    					event.setCancelled(true);
    					player.closeInventory();
    					player.sendMessage(ChatColor.GREEN + "[AdminPanel] GameMode changed to Creative");
    					player.setGameMode(GameMode.CREATIVE);
    				}
-   				if(event.getSlot() == 6){
+   				if(event.getSlot() == 14){
    					event.setCancelled(true);
    					player.closeInventory();
    					player.sendMessage(ChatColor.GREEN + "[AdminPanel] GameMode changed to Survival");
    					player.setGameMode(GameMode.SURVIVAL);
    				}
-   				if(event.getSlot() == 8){
+   				if(event.getSlot() == 33){
    					event.setCancelled(true);
    					player.closeInventory();
    					Bukkit.broadcastMessage(ChatColor.DARK_RED + "[Server] Server restart soon!");
    				}
-   				if(event.getSlot() == 10){
+   				if(event.getSlot() == 31){
    					event.setCancelled(true);
    					player.closeInventory();
    					Bukkit.reload();
    					Bukkit.reloadWhitelist();
    					player.sendMessage(ChatColor.GREEN + "[AdminPanel] Reloaded Server Whitelist and Plugins");
    				}
-   				if(event.getSlot() == 12){
+   				if(event.getSlot() == 19){
    					event.setCancelled(true);
    					player.closeInventory();
    					World w = player.getWorld();
@@ -239,7 +261,7 @@ public class AP extends JavaPlugin implements Listener{
    						}
    					}
    				}
-   				if(event.getSlot() == 14){
+   				if(event.getSlot() == 21){
    					event.setCancelled(true);
    					player.closeInventory();
    					List<Entity> ir = player.getNearbyEntities(100, 100, 100);
@@ -249,15 +271,29 @@ public class AP extends JavaPlugin implements Listener{
    			       }
    				}
    		    }
+   				//killallradiusanimal
+   				if(event.getSlot() == 25){
+   					event.setCancelled(true);
+   					player.closeInventory();
+   					List<Entity> iu = player.getNearbyEntities(100, 100, 100);
+   					for(Entity ent : iu){
+   						if(ent instanceof Animals){
+   							ent.remove();
+   						}
+   					}
+   					
+   				}
    				
-   						if(event.getSlot() == 16){
+   				
+   				//HEAL
+   						if(event.getSlot() == 6){
    							event.setCancelled(true);
    							player.closeInventory();
    								player.setHealth(20);
    								player.setFoodLevel(20);
    								player.sendMessage(ChatColor.GREEN + "[AdminPanel] Healed");
    			}
-   						if(event.getSlot() == 18){
+   						if(event.getSlot() == 29){
 								List<String> players = new ArrayList<String>();
 								for(Player GA : Bukkit.getServer().getOnlinePlayers()){
 									players.add(GA.getName());
@@ -271,9 +307,42 @@ public class AP extends JavaPlugin implements Listener{
    							}else
    								player.sendMessage(ChatColor.GOLD + "[AdminPanel] There are currently " +GPA + " Players online");
    								player.sendMessage(ChatColor.GOLD + "[AdminPanel] Currently connected Players : " + ChatColor.GRAY + players);
-   		   }
-   		}
-   	}
+   				}
+   						if(event.getSlot() == 40){
+   						int random = new Random().nextInt(Bukkit.getOnlinePlayers().length);
+   							Player R = Bukkit.getOnlinePlayers()[random];
+   						
+   							 event.setCancelled(true);
+   							 player.closeInventory();
+   							Player random1 = Bukkit.getOnlinePlayers()[new Random().nextInt(Bukkit.getOnlinePlayers().length)];
+   							if(random1 == player){
+   								player.sendMessage(ChatColor.RED + "[AdminPanel] Error you were the selected random Player, Try again ");
+   							}else{
+   							
+   						     player.teleport(random1);
+   						     player.sendMessage(ChatColor.GREEN + "[AdminPanel] You have teleported to a random Player");
+   						     player.sendMessage(ChatColor.GREEN + "[AdminPanel] You have been teleported to " + random1.getName());
+   								
+   							}
+   						}
+   						
+   						if(event.getSlot() == 23){
+   							event.setCancelled(true);
+   							player.closeInventory();
+   							World w = player.getWorld();
+   		   					List<Entity> ip = w.getEntities();
+   		   					for(Entity ent : ip){
+   		   						if(ent instanceof Animals){
+   		   							ent.remove();
+   		   						}
+   		   					}
+   		   					
+   						}
+   						
+   			    }		 
+   			}
+   						
+ 
    	
    	
    	
