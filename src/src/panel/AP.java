@@ -358,6 +358,7 @@ public class AP extends JavaPlugin implements Listener{
 			if(player.hasPermission("AP.AdminPanel")){
 			
 			if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+				if(player.hasPermission("AP.AdminPanel")){
 				if(mat == Material.FEATHER){
 					player.openInventory(AdminP);
 		   }
@@ -365,4 +366,5 @@ public class AP extends JavaPlugin implements Listener{
 	}
   }
 	
+ }
 }
