@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -48,8 +49,8 @@ public class AP extends JavaPlugin implements Listener{
 		Player p = J.getPlayer();
 	
 		if(p.getName().equalsIgnoreCase(getConfig().getString("AdminPanelUsers"))){
-			p.sendMessage(ChatColor.GREEN + "Admin Panel V1.7 Made by Knight_Ghast");
-			p.sendMessage(ChatColor.GREEN + "Admin Panel seems to be working fine...");
+			p.sendMessage(ChatColor.GREEN + "[AdminPanel] Admin Panel V1.7 Made by Knight_Ghast");
+			p.sendMessage(ChatColor.GREEN + "[AdminPanel] Panel seems to be working fine...");
 		}
 	}
 	
@@ -93,7 +94,7 @@ public class AP extends JavaPlugin implements Listener{
                	UM.setDisplayName(ChatColor.GRAY + "UnVanish");
                	UM.setLore(Arrays.asList(ChatColor.GREEN + "Exit out of Vanish"));
                	UnVanish.setItemMeta(UM);
-               		AdminP.setItem(1, UnVanish);
+               		AdminP.setItem(2, UnVanish);
             
             //GamemodeCreative
                	ItemStack Cr = new ItemStack(Material.PAPER, 1);
@@ -101,21 +102,21 @@ public class AP extends JavaPlugin implements Listener{
                	CM.setDisplayName(ChatColor.YELLOW + "Creative");
                	CM.setLore(Arrays.asList(ChatColor.GREEN + "Changes your GameMode to Creative."));
                	Cr.setItemMeta(CM);
-               		AdminP.setItem(2, Cr);
+               		AdminP.setItem(4, Cr);
            //GamemodeSurvival
                	ItemStack Sr = new ItemStack(Material.PAPER, 1);
                	ItemMeta SM = Sr.getItemMeta();
                	SM.setDisplayName(ChatColor.GOLD + "Survival");
                	SM.setLore(Arrays.asList(ChatColor.GREEN + "Changes your GameMode to Survival"));
                	Sr.setItemMeta(SM);
-               		AdminP.setItem(3, Sr);
+               		AdminP.setItem(6, Sr);
            //AnnounceRestart
                		ItemStack Ar = new ItemStack(Material.PAPER);
                		ItemMeta AM = Ar.getItemMeta();
                		AM.setDisplayName(ChatColor.RED + "Announce Server restart");
                		AM.setLore(Arrays.asList(ChatColor.RED + "Annouce a Server restart (Manual Restart)"));
                		Ar.setItemMeta(AM);
-               			AdminP.setItem(4, Ar);
+               			AdminP.setItem(8, Ar);
            //ReloadPlugins
                			ItemStack Pr = new ItemStack(Material.PAPER);
                			ItemMeta PM = Pr.getItemMeta();
@@ -123,21 +124,28 @@ public class AP extends JavaPlugin implements Listener{
                			PM.setLore(Arrays.asList(ChatColor.GREEN + "Reload the Server Plugins and Whitelist"
                					+ ""));
                			Pr.setItemMeta(PM);
-               				AdminP.setItem(5, Pr);
+               				AdminP.setItem(10, Pr);
            //KillAllEntities[MOBS]
                			ItemStack Ka = new ItemStack(Material.PAPER, 1);
                			ItemMeta Km = Ka.getItemMeta();
                			Km.setDisplayName(ChatColor.DARK_RED + "Kill all Mobs in world");
                			Km.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in the current World, this does not have a raidius"));
                			Ka.setItemMeta(Km);
-               				AdminP.setItem(6, Ka);
+               				AdminP.setItem(12, Ka);
            //KillAllEntitiesRadius[MOBS]
    						ItemStack KAR = new ItemStack(Material.PAPER, 1);
    						ItemMeta KAM = KAR.getItemMeta();
    						KAM.setDisplayName(ChatColor.RED + "Kill all Mobs (Radius)");
    						KAM.setLore(Arrays.asList(ChatColor.RED + "Kill all Mobs in a radius."));
    						KAR.setItemMeta(KAM);
-   							AdminP.setItem(7, KAR);
+   							AdminP.setItem(14, KAR);
+   			//HealPlayer
+   							ItemStack Ha = new ItemStack(Material.PAPER, 1);
+   							ItemMeta Hm = Ha.getItemMeta();
+   							Hm.setDisplayName(ChatColor.GREEN + "Heal yourself");
+   							Hm.setLore(Arrays.asList(ChatColor.GOLD + "Heal your self and fill your hunger"));
+   							Ha.setItemMeta(Hm);
+   								AdminP.setItem(16, Ha);
                				
    		}
    		
@@ -145,7 +153,8 @@ public class AP extends JavaPlugin implements Listener{
    		
    		
    		//ItemClickEvents
-   	@EventHandler
+   	@SuppressWarnings("deprecation")
+	@EventHandler
    	public void onInventoryClick(InventoryClickEvent event){
    		Player player = (Player) event.getWhoClicked();
    		ItemStack clicked = event.getCurrentItem();
@@ -156,51 +165,51 @@ public class AP extends JavaPlugin implements Listener{
    				if(event.getSlot() == 0){
    				event.setCancelled(true);
    					player.closeInventory();
-   					player.sendMessage(ChatColor.GRAY + "Vanished");
+   					player.sendMessage(ChatColor.GRAY + "[AdminPanel] Vanished");
    					if (!Vanish.contains(player.getName())){
    						
    						
    						player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 1));
    						Vanish.add(player.getName());
-   						player.sendMessage(ChatColor.GRAY + "Use the UnVanish button in your Admin Panel if you wish to exit out of vanish mode");
+   						player.sendMessage(ChatColor.GRAY + "[AdminPanel] Use the UnVanish button in your Admin Panel if you wish to exit out of vanish mode");
    					}else{
-   						player.sendMessage(ChatColor.DARK_RED + "You already Vanished!");
+   						player.sendMessage(ChatColor.DARK_RED + "[AdminPanel] You already Vanished!");
    				}
    			}
    				//Unvanish
-   				if(event.getSlot() == 1){
+   				if(event.getSlot() == 2){
    					event.setCancelled(true);
    					player.closeInventory();	
-   					player.sendMessage(ChatColor.GRAY + "UnVanished");
+   					player.sendMessage(ChatColor.GRAY + "[AdminPanel] UnVanished");
    					player.removePotionEffect(PotionEffectType.INVISIBILITY);
    					Vanish.remove(player.getName());
    				}
    				
-   				if(event.getSlot() == 2){
+   				if(event.getSlot() == 4){
    					event.setCancelled(true);
    					player.closeInventory();
-   					player.sendMessage(ChatColor.GREEN + "GameMode changed to Creative");
+   					player.sendMessage(ChatColor.GREEN + "[AdminPanel] GameMode changed to Creative");
    					player.setGameMode(GameMode.CREATIVE);
    				}
-   				if(event.getSlot() == 3){
+   				if(event.getSlot() == 6){
    					event.setCancelled(true);
    					player.closeInventory();
-   					player.sendMessage(ChatColor.GREEN + "GameMode changed to Survival");
+   					player.sendMessage(ChatColor.GREEN + "[AdminPanel] GameMode changed to Survival");
    					player.setGameMode(GameMode.SURVIVAL);
    				}
-   				if(event.getSlot() == 4){
+   				if(event.getSlot() == 8){
    					event.setCancelled(true);
    					player.closeInventory();
    					Bukkit.broadcastMessage(ChatColor.DARK_RED + "[Server] Server restart soon!");
    				}
-   				if(event.getSlot() == 5){
+   				if(event.getSlot() == 10){
    					event.setCancelled(true);
    					player.closeInventory();
    					Bukkit.reload();
    					Bukkit.reloadWhitelist();
-   					player.sendMessage(ChatColor.GREEN + "Reloaded Server Whitelist and Plugins");
+   					player.sendMessage(ChatColor.GREEN + "[AdminPanel] Reloaded Server Whitelist and Plugins");
    				}
-   				if(event.getSlot() == 6){
+   				if(event.getSlot() == 12){
    					event.setCancelled(true);
    					player.closeInventory();
    					World w = player.getWorld();
@@ -211,16 +220,24 @@ public class AP extends JavaPlugin implements Listener{
    						}
    					}
    				}
-   				if(event.getSlot() == 7){
+   				if(event.getSlot() == 14){
    					event.setCancelled(true);
    					player.closeInventory();
-   					List<Entity> ir = player.getNearbyEntities(200, 200, 200);
+   					List<Entity> ir = player.getNearbyEntities(100, 100, 100);
    						for(Entity ent : ir){
    						if(ent instanceof Monster){
    							ent.remove();
    			       }
    				}
    		    }
+   				
+   						if(event.getSlot() == 16){
+   							event.setCancelled(true);
+   							player.closeInventory();
+   								player.setHealth(20);
+   								player.setFoodLevel(20);
+   								player.sendMessage(ChatColor.GREEN + "[AdminPanel] Healed");
+   			}
    		}
    	}
    	
